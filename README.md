@@ -1,6 +1,6 @@
 # Optional Require
 
-Allows you to require a module only if it exists.
+NodeJS Require that let you handle module not found error without try/catch.  Allows you to gracefully require a module only if it exists and contains no error.
 
 # Usage
 
@@ -22,29 +22,51 @@ $ npm i optional-require --save
 
 # API
 
-#### [optionalRequire(require)]()
+#### [optionalRequire(require)](#optionalrequirerequire)
 
-The single function this module exports.  Call it with `require` to get a custom function for your file to do optional require.  See [Usage](#usage) above.
+The single function this module exports.  Call it with `require` to get a custom function for you to do optional require from your file's require context.  See [Usage](#usage) above.
 
-#### [customOptionalRequire(path, [message])]()
+#### [customOptionalRequire(path, [message|options])](#customoptionalrequirepath-messageoptions)
 
-The function [optionalRequire]() returns for your file to do optional require in your file.
+The function [optionalRequire](#optionalrequirerequire) returns for you to do optional require from your file's require context.
 
 ##### Params
 
   - `path` - name/path to the module your want to optionally require
   - `message` - optional flag/message to enable `console.log` a message when module is not found
+  - `options` - an optional object with the following fields
+    - `message` - see above
+    - `fail` - callback for when an error that's *not* `MODULE_NOT_FOUND` for `path` occurred
+    - `notFound` - callback for when `path` was not found
+      - The value from this is returned
+    - `default` - default value to returned when not found - not allowed with `notFound` together
 
 ##### Returns
-  - module required or `undefined` if not found
+
+  - module required or one of the following if not found
+    - `undefined` or
+    - return value from `options.notFound` if it's specified
+    - `options.default` if it's specified
 
 ##### Throws
 
   - rethrows any error that's not `MODULE_NOT_FOUND` for the module `path`
 
-#### [customOptionalRequire.resolve(path, [message])]()
+#### [customOptionalRequire.resolve(path, [message])](#customoptionalrequireresolvepath-message)
 
-Same as [customOptionalRequire]() but acts like `require.resolve`
+Same as [customOptionalRequire](#customoptionalrequirepath-messageoptions) but acts like `require.resolve`
+
+#### [optionalRequire.log(message, path)](#optionalrequirelogmessage-path)
+
+The function that will be called to log the message when optional module is not found.  You can override this with your own function.
+
+#### [optionalRequire.try(require, path, [message|options])](#optionalrequiretryrequire-path-messageoptions)
+
+Same as [customOptionalRequire](#customoptionalrequirepath-messageoptions) but you have to pass in `require` from your file's context.
+
+#### [optionalRequire.tryResolve(require, path, [message|options])](#optionalrequiretryresolverequire-path-messageoptions)
+
+Same as [customOptionalRequire.resolve](#customoptionalrequirepath-messageoptions) but you have to pass in `require` from your file's context.
 
 # LICENSE
 
