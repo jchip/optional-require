@@ -1,6 +1,6 @@
 {
   "name": "optional-require",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "NodeJS Require that let you handle module not found error without try/catch",
   "main": "index.js",
   "scripts": {
