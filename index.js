@@ -49,5 +49,6 @@ function optionalRequire(callerRequire) {
 
 optionalRequire.try = tryRequire;
 optionalRequire.tryResolve = tryResolve;
+optionalRequire.resolve = tryResolve;
 optionalRequire.log = (message, path) => console.log(`Just FYI: ${message}; Path "${path}"`);
 module.exports = optionalRequire;

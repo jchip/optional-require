@@ -64,7 +64,7 @@ The function that will be called to log the message when optional module is not 
 
 Same as [customOptionalRequire](#customoptionalrequirepath-messageoptions) but you have to pass in `require` from your file's context.
 
-#### [optionalRequire.tryResolve(require, path, [message|options])](#optionalrequiretryresolverequire-path-messageoptions)
+#### [optionalRequire.resolve(require, path, [message|options])](#optionalrequireresolverequire-path-messageoptions)
 
 Same as [customOptionalRequire.resolve](#customoptionalrequirepath-messageoptions) but you have to pass in `require` from your file's context.
 
