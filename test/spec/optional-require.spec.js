@@ -5,6 +5,12 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe("optional-require", function () {
+  const saveCwd = process.cwd();
+
+  after(() => {
+    process.chdir(saveCwd);
+  });
+
   describe("require", function () {
     it("should return undefined when module is not found", () => {
       expect(optionalRequire(require)("not-found")).to.be.undefined;
@@ -56,11 +62,11 @@ describe("optional-require", function () {
     });
 
     it("should return default", () => {
-      expect(optionalRequire(require)("not-found", {default: "hello"})).to.equal("hello");
+      expect(optionalRequire(require)("not-found", { default: "hello" })).to.equal("hello");
     });
 
     it("should throw if notFound and default both are set in options", () => {
-      expect(() => optionalRequire(require)("", {notFound: () => 1, default: 1})).to.throw();
+      expect(() => optionalRequire(require)("", { notFound: () => 1, default: 1 })).to.throw();
     });
   });
 
@@ -77,5 +83,19 @@ describe("optional-require", function () {
       expect(optionalRequire(require).resolve("../data/good")).to.equal(require.resolve("../data/good"));
     });
   });
-});
 
+  describe("with require-at", function () {
+    it("should return undefined when module is not found", () => {
+      expect(optionalRequire(require).resolve("not-found", "resolve")).to.be.undefined;
+    });
+
+    it("should return path to a good module", () => {
+      expect(optionalRequire(require).resolve("chai")).to.equal(require.resolve("chai"));
+    });
+
+    it("should return path to a good relative module", () => {
+      expect(optionalRequire(require).resolve("../data/good")).to.equal(require.resolve("../data/good"));
+    });
+
+  });
+});
