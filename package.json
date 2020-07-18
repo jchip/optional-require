@@ -28,10 +28,10 @@
     "chai": "^3.5.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "prettier": "1.19.1",
     "require-at": "^1.0.0"
   },
   "dependencies": {
-    "prettier": "1.19.1"
   },
   "prettier": {
     "printWidth": 120
