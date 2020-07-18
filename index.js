@@ -2,22 +2,31 @@
 
 const assert = require("assert");
 
+function findModuleNotFound(err, name) {
+  // First line is "Cannot find module 'foo'"
+  const msg = err.message.split("\n")[0];
+  return msg && msg.includes(`'${name}'`);
+}
+
 function _optionalRequire(callerRequire, resolve, path, message) {
   let opts;
 
   if (typeof message === "object") {
     opts = message;
-    assert(!(opts.hasOwnProperty("notFound") && opts.hasOwnProperty("default")),
-      "optionalRequire: options set with both `notFound` and `default`");
+    assert(
+      !(opts.hasOwnProperty("notFound") && opts.hasOwnProperty("default")),
+      "optionalRequire: options set with both `notFound` and `default`"
+    );
   } else {
-    opts = {message};
+    opts = { message };
   }
 
   try {
     return resolve ? callerRequire.resolve(path) : callerRequire(path);
   } catch (e) {
-
-    if (e.code !== "MODULE_NOT_FOUND" || e.message.indexOf(path) < 0) {
+    if (e.code !== "MODULE_NOT_FOUND" || !findModuleNotFound(e, path)) {
+      // if the module we are requiring fail because it try to require a
+      // module that's not found, then we have to report this as failed.
       if (typeof opts.fail === "function") {
         return opts.fail(e);
       }
