@@ -3,9 +3,21 @@
 const assert = require("assert");
 
 function findModuleNotFound(err, name) {
-  // First line is "Cannot find module 'foo'"
+  // Check the first line of the error message
   const msg = err.message.split("\n")[0];
-  return msg && msg.includes(`'${name}'`);
+  return msg && (
+    // Check for "Cannot find module 'foo'"
+    msg.includes(`'${name}'`)
+    // Check for "Your application tried to access foo (a peer dependency) ..." (Yarn v2 PnP)
+    // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L680
+    || msg.includes(` ${name} `)
+    // Check for "Your application tried to access foo. While ..." (Yarn v2 PnP)
+    // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L704
+    || msg.includes(` ${name}. `)
+    // Check for "Your application tried to access foo, but ..." (Yarn v2 PnP)
+    // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L718
+    || msg.includes(` ${name}, `)
+  );
 }
 
 function _optionalRequire(callerRequire, resolve, path, message) {
