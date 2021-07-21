@@ -2,7 +2,11 @@ language: node_js
 node_js:
   - v4
   - v6
-  - v7
+  - v8
+  - v10
+  - v12
+  - v14
+  - v16
 notifications:
   email:
     - joel123@gmail.com
