@@ -1,0 +1,668 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>optional-require</title>
+	<meta name="description" content="Documentation for optional-require">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">optional-require</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>optional-require</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Type aliases</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias"><a href="modules.html#logfunction" class="tsd-kind-icon">Log<wbr>Function</a></li>
+								<li class="tsd-kind-type-alias"><a href="modules.html#optionalrequirefunction" class="tsd-kind-icon">Optional<wbr>Require<wbr>Function</a></li>
+								<li class="tsd-kind-type-alias"><a href="modules.html#optionalrequireopts" class="tsd-kind-icon">Optional<wbr>Require<wbr>Opts</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable"><a href="modules.html#optionalrequire" class="tsd-kind-icon">optional<wbr>Require</a></li>
+								<li class="tsd-kind-variable"><a href="modules.html#optionalrequirecwd" class="tsd-kind-icon">optional<wbr>Require<wbr>Cwd</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="modules.html#makeoptionalrequire" class="tsd-kind-icon">make<wbr>Optional<wbr>Require</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#setdefaultlog" class="tsd-kind-icon">set<wbr>Default<wbr>Log</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#tryrequire" class="tsd-kind-icon">try<wbr>Require</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#tryresolve" class="tsd-kind-icon">try<wbr>Resolve</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Type aliases</h2>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="logfunction" class="tsd-anchor"></a>
+					<h3>Log<wbr>Function</h3>
+					<div class="tsd-signature tsd-kind-icon">Log<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L44">index.ts:44</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>function to log in case require module was not found</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>params</dt>
+							<dd><p>message - message to log</p>
+							</dd>
+							<dt>params</dt>
+							<dd><p>path - path of the module that user tried to require</p>
+							</dd>
+						</dl>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>message: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>path: <span class="tsd-signature-type">string</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="optionalrequirefunction" class="tsd-anchor"></a>
+					<h3>Optional<wbr>Require<wbr>Function</h3>
+					<div class="tsd-signature tsd-kind-icon">Optional<wbr>Require<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>log<span class="tsd-signature-symbol">: </span><a href="modules.html#logfunction" class="tsd-signature-type" data-tsd-kind="Type alias">LogFunction</a><span class="tsd-signature-symbol">; </span>resolve<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, opsOrMsg<span class="tsd-signature-symbol">?: </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L218">index.ts:218</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>function to require a module with optional handling in case it&#39;s not found or fail to require</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, optsOrMsg<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>path: <span class="tsd-signature-type">string</span></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>path to module to require</p>
+												</div>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> optsOrMsg: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a></h5>
+												<div class="tsd-comment tsd-typography">
+													<p>options or message to log when module not found</p>
+												</div>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5>log<span class="tsd-signature-symbol">: </span><a href="modules.html#logfunction" class="tsd-signature-type" data-tsd-kind="Type alias">LogFunction</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>function to log message, default to use <code>console.log</code>, you can replace this with
+										another function.</p>
+									</div>
+								</div>
+							</li>
+							<li class="tsd-parameter">
+								<h5>resolve<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, opsOrMsg<span class="tsd-signature-symbol">?: </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>resolve the module&#39;s full path</p>
+									</div>
+									<dl class="tsd-comment-tags">
+										<dt>param</dt>
+										<dd><p>path to module to resolve</p>
+										</dd>
+										<dt>param</dt>
+										<dd><p>options or message to log when module not found</p>
+										</dd>
+										<dt>returns</dt>
+										<dd><p>resolve result</p>
+										</dd>
+									</dl>
+								</div>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-signature">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, opsOrMsg<span class="tsd-signature-symbol">?: </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>path: <span class="tsd-signature-type">string</span></h5>
+													</li>
+													<li>
+														<h5><span class="tsd-flag ts-flagOptional">Optional</span> opsOrMsg: <a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="optionalrequireopts" class="tsd-anchor"></a>
+					<h3>Optional<wbr>Require<wbr>Opts</h3>
+					<div class="tsd-signature tsd-kind-icon">Optional<wbr>Require<wbr>Opts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>default<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>fail<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>log<span class="tsd-signature-symbol">?: </span><a href="modules.html#logfunction" class="tsd-signature-type" data-tsd-kind="Type alias">LogFunction</a><span class="tsd-signature-symbol">; </span>message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>notFound<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">; </span>require<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">NodeRequire</span><span class="tsd-signature-symbol">; </span>resolve<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L49">index.ts:49</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Options for calling optionalRequire</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> default<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">unknown</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>The value to return if error was <code>MODULE_NOT_FOUND</code> but <code>notFound</code> is not provided.</p>
+									</div>
+								</div>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> fail<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p><code>fail</code> is a function. If error from require was something other than <code>MODULE_NOT_FOUND</code>,
+										for example, the module contains syntax error, then:</p>
+									</div>
+									<ul>
+										<li>call <code>fail</code> if it&#39;s provided</li>
+										<li>else rethrow the error</li>
+									</ul>
+									<dl class="tsd-comment-tags">
+										<dt>remark</dt>
+										<dd><p>This is a separate callback from <code>notFound</code> so user can handle
+											real <code>MODULE_NOT_FOUND</code> exception separately, or let the <code>default</code> be returned.</p>
+										</dd>
+										<dt>param</dt>
+										<dd><p>the error from require</p>
+										</dd>
+									</dl>
+								</div>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-signature">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>err: <span class="tsd-signature-type">Error</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> log<span class="tsd-signature-symbol">?: </span><a href="modules.html#logfunction" class="tsd-signature-type" data-tsd-kind="Type alias">LogFunction</a></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>function to log the module not found message, default log function uses <code>console.log</code></p>
+									</div>
+								</div>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>Tell optional require to log a message if the module is not found.</p>
+										<ul>
+											<li>note: it doesn&#39;t log if the error is not due to the module not found</li>
+										</ul>
+									</div>
+									<p>This field can have these values:</p>
+									<ol>
+										<li><code>true</code> - log with default message</li>
+										<li>string - a string to prepend to the message being logged</li>
+									</ol>
+									<dl class="tsd-comment-tags">
+										<dt>remarks</dt>
+										<dd><p>to further customize logging, set the <code>log</code> function.</p>
+										</dd>
+									</dl>
+								</div>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> not<wbr>Found<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">unknown</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p><code>notFound</code> is a function. If error from require was <code>MODULE_NOT_FOUND</code>, then:</p>
+									</div>
+									<ul>
+										<li>call <code>notFound</code> if it&#39;s provided</li>
+										<li>else return the <code>default</code> value.</li>
+									</ul>
+									<dl class="tsd-comment-tags">
+										<dt>remark</dt>
+										<dd><p>in case the error was not <code>MODULE_NOT_FOUND</code>, will instead call the <code>fail</code> function
+											if it&#39;s provided.</p>
+										</dd>
+										<dt>param</dt>
+										<dd><p>the error from require</p>
+										</dd>
+									</dl>
+								</div>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-signature">
+										<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-literal">
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+										</ul>
+										<ul class="tsd-descriptions">
+											<li class="tsd-description">
+												<h4 class="tsd-parameters-title">Parameters</h4>
+												<ul class="tsd-parameters">
+													<li>
+														<h5>err: <span class="tsd-signature-type">Error</span></h5>
+													</li>
+												</ul>
+												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> require<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">NodeRequire</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p><code>require</code> is the node.js require function from caller&#39;s context.</p>
+									</div>
+									<p>If not provided, then use the one received when creating the optional require function</p>
+								</div>
+							</li>
+							<li class="tsd-parameter">
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> resolve<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<div class="lead">
+										<p>If <code>true</code>, then do an optional <code>require.resolve</code> and return the full path</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="optionalrequire" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> optional<wbr>Require</h3>
+					<div class="tsd-signature tsd-kind-icon">optional<wbr>Require<span class="tsd-signature-symbol">:</span> <a href="modules.html#optionalrequirefunction" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireFunction</a><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L276">index.ts:276</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A default optionalRequire function using <code>require</code> from optional-require&#39;s context.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>remarks</dt>
+							<dd><p>because <code>require</code> is from optional-require&#39;s context, you won&#39;t be able to
+								do <code>optionalRequire(&quot;./my-module&quot;)</code>.</p>
+								<p>You can still override the <code>require</code> using <code>options.require</code> with the one from your
+								calling context.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="optionalrequirecwd" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> optional<wbr>Require<wbr>Cwd</h3>
+					<div class="tsd-signature tsd-kind-icon">optional<wbr>Require<wbr>Cwd<span class="tsd-signature-symbol">:</span> <a href="modules.html#optionalrequirefunction" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireFunction</a><span class="tsd-signature-symbol"> = ...</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L287">index.ts:287</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An optionalRequire function using <code>require</code> from CWD context</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>remarks</dt>
+							<dd><p>because <code>require</code> is from CWD context, if you do <code>optionalRequireCwd(&quot;./my-module&quot;)</code>
+								then it will look for <code>my-module</code> in CWD.</p>
+							</dd>
+							<dt>remarks</dt>
+							<dd><p>You can still override the <code>require</code> using <code>options.require</code> with the one from your
+								calling context.</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="makeoptionalrequire" class="tsd-anchor"></a>
+					<h3>make<wbr>Optional<wbr>Require</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">make<wbr>Optional<wbr>Require<span class="tsd-signature-symbol">(</span>callerRequire<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeRequire</span>, log<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modules.html#optionalrequirefunction" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireFunction</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L246">index.ts:246</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Make an optional require function, using the <code>require</code> from caller&#39;s context.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callerRequire: <span class="tsd-signature-type">NodeRequire</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><code>require</code> from caller&#39;s context</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> log: <span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>function to log if module is not found</p>
+									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>message: <span class="tsd-signature-type">string</span></h5>
+														</li>
+														<li>
+															<h5>path: <span class="tsd-signature-type">string</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="modules.html#optionalrequirefunction" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireFunction</a></h4>
+							<p>required module</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="setdefaultlog" class="tsd-anchor"></a>
+					<h3>set<wbr>Default<wbr>Log</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Default<wbr>Log<span class="tsd-signature-symbol">(</span>log<span class="tsd-signature-symbol">: </span><a href="modules.html#logfunction" class="tsd-signature-type" data-tsd-kind="Type alias">LogFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L123">index.ts:123</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>log: <a href="modules.html#logfunction" class="tsd-signature-type" data-tsd-kind="Type alias">LogFunction</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="tryrequire" class="tsd-anchor"></a>
+					<h3>try<wbr>Require</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">try<wbr>Require<span class="tsd-signature-symbol">(</span>callerRequire<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeRequire</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, optsOrMsg<span class="tsd-signature-symbol">?: </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L187">index.ts:187</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>try to require a module with optional handling in case it&#39;s not found or fail to require</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callerRequire: <span class="tsd-signature-type">NodeRequire</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><code>require</code> from caller context</p>
+									</div>
+								</li>
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>path to module to require</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> optsOrMsg: <a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options or message to log in case of exceptions</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+							<p>require result</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="tryresolve" class="tsd-anchor"></a>
+					<h3>try<wbr>Resolve</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">try<wbr>Resolve<span class="tsd-signature-symbol">(</span>callerRequire<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeRequire</span>, path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, optsOrMsg<span class="tsd-signature-symbol">?: </span><a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jchip/optional-require/blob/f5f4553c/src/index.ts#L205">index.ts:205</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>try to resolve a module with optional handling in case it&#39;s not found or fail to require</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callerRequire: <span class="tsd-signature-type">NodeRequire</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><code>require</code> from caller context</p>
+									</div>
+								</li>
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>path to module to require</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> optsOrMsg: <a href="modules.html#optionalrequireopts" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalRequireOpts</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>options or message to log in case of exceptions</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>resolve result</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="current ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#logfunction" class="tsd-kind-icon">Log<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#optionalrequirefunction" class="tsd-kind-icon">Optional<wbr>Require<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#optionalrequireopts" class="tsd-kind-icon">Optional<wbr>Require<wbr>Opts</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#optionalrequire" class="tsd-kind-icon">optional<wbr>Require</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="modules.html#optionalrequirecwd" class="tsd-kind-icon">optional<wbr>Require<wbr>Cwd</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#makeoptionalrequire" class="tsd-kind-icon">make<wbr>Optional<wbr>Require</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#setdefaultlog" class="tsd-kind-icon">set<wbr>Default<wbr>Log</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#tryrequire" class="tsd-kind-icon">try<wbr>Require</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#tryresolve" class="tsd-kind-icon">try<wbr>Resolve</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

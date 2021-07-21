@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["es2015"],
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "importHelpers": false,
+    "target": "ES2015",
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "declaration": true,
+    "types": ["node", "mocha", "chai", "sinon", "sinon-chai"],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "strictFunctionTypes": true
+  },
+  "include": ["src"]
+}

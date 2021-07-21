@@ -2,3 +2,5 @@ node_modules
 .idea
 coverage
 *-lock.*
+.nyc_output
+dist
