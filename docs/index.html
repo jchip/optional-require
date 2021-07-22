@@ -77,7 +77,7 @@
 </code></pre>
 				<ol>
 					<li>You need to keep the variable outside: <code>let some</code> before try/catch</li>
-					<li>If <code>&quot;some-optional-module&quot;</code> contains error itself, above code will silently ignore it, leaving you scratching your head.</li>
+					<li>If <code>&quot;some-optional-module&quot;</code> contains error itself, above code will silently ignore it, leaving you, and more importantly, your users, puzzling on why it&#39;s not working.</li>
 				</ol>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
@@ -107,6 +107,18 @@
 
 <span style="color: #008000">// now you can optional require files in same dir as your file</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">myModule</span><span style="color: #000000"> = </span><span style="color: #795E26">optionalRequire</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;./my-module&quot;</span><span style="color: #000000">);</span>
+</code></pre>
+				<a href="#legacy-usage" id="legacy-usage" style="color: inherit; text-decoration: none;">
+					<h3>Legacy Usage</h3>
+				</a>
+				<p>In older versions, this module exports <code>makeOptionalRequire</code> directly and this is the legacy usage in JavaScript, which is still supported:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">optionalRequire</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;optional-require&quot;</span><span style="color: #000000">)(</span><span style="color: #001080">require</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">foo</span><span style="color: #000000"> = </span><span style="color: #795E26">optionalRequire</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;foo&quot;</span><span style="color: #000000">) || {};</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">bar</span><span style="color: #000000"> = </span><span style="color: #795E26">optionalRequire</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;bar&quot;</span><span style="color: #000000">, </span><span style="color: #0000FF">true</span><span style="color: #000000">); </span><span style="color: #008000">// true enables console.log a message when not found</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">xyz</span><span style="color: #000000"> = </span><span style="color: #795E26">optionalRequire</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;xyz&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;test&quot;</span><span style="color: #000000">); </span><span style="color: #008000">// &quot;test&quot; enables console.log a message with &quot;test&quot; added.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fbPath</span><span style="color: #000000"> = </span><span style="color: #001080">optionalRequire</span><span style="color: #000000">.</span><span style="color: #795E26">resolve</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;foo&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;foo doesn&#039;t exist&quot;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">rel</span><span style="color: #000000"> = </span><span style="color: #795E26">optionalRequire</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;../foo/bar&quot;</span><span style="color: #000000">); </span><span style="color: #008000">// relative module path works</span>
 </code></pre>
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>
