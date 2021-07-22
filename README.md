@@ -19,7 +19,7 @@ try {
 ```
 
 1. You need to keep the variable outside: `let some` before try/catch
-2. If `"some-optional-module"` contains error itself, above code will silently ignore it, leaving you scratching your head.
+2. If `"some-optional-module"` contains error itself, above code will silently ignore it, leaving you, and more importantly, your users, puzzling on why it's not working.
 
 ## Usage
 
@@ -55,6 +55,20 @@ const optionalRequire = makeOptionalRequire(require);
 
 // now you can optional require files in same dir as your file
 const myModule = optionalRequire("./my-module");
+```
+
+### Legacy Usage
+
+In older versions, this module exports `makeOptionalRequire` directly and this is the legacy usage in JavaScript, which is still supported:
+
+```js
+const optionalRequire = require("optional-require")(require);
+
+const foo = optionalRequire("foo") || {};
+const bar = optionalRequire("bar", true); // true enables console.log a message when not found
+const xyz = optionalRequire("xyz", "test"); // "test" enables console.log a message with "test" added.
+const fbPath = optionalRequire.resolve("foo", "foo doesn't exist");
+const rel = optionalRequire("../foo/bar"); // relative module path works
 ```
 
 ## API
