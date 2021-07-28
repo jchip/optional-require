@@ -7,7 +7,7 @@
 
 const lib = require("./dist");
 
-module.exports = (...args) => lib.makeOptionalRequire(...args);
+module.exports = function() { return lib.makeOptionalRequire.apply(lib, arguments); }
 
 module.exports.tryRequire = lib.tryRequire;
 module.exports.tryResolve = lib.tryResolve;
