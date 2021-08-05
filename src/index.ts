@@ -126,7 +126,7 @@ export function setDefaultLog(log: LogFunction): void {
 
 function _getOptions(
   optsOrMsg: OptionalRequireOpts | string | true,
-  requireFunction?: NodeRequire,
+  requireFunction: NodeRequire = xrequire,
   log?: LogFunction
 ): OptionalRequireOpts {
   if (typeof optsOrMsg === "object") {

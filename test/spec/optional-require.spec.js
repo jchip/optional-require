@@ -30,6 +30,10 @@ describe("optional-require", function () {
   });
 
   describe("optionalRequire", function () {
+    it("should provide default require function", () => {
+      expect(optionalRequire()("chai")).to.be.ok;
+    });
+
     it("should return undefined when module is not found", () => {
       expect(optionalRequire(require)("not-found")).to.be.undefined;
     });
