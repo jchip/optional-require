@@ -215,12 +215,12 @@ export function tryResolve(
 /**
  * function to require a module with optional handling in case it's not found or fail to require
  */
-export type OptionalRequireFunction = {
+export type OptionalRequireFunction<T = any> = {
   /**
    * @param path - path to module to require
    * @param optsOrMsg - options or message to log when module not found
    */
-  (path: string, optsOrMsg?: OptionalRequireOpts | string | true): unknown;
+  (path: string, optsOrMsg?: OptionalRequireOpts | string | true): T;
   /**
    * resolve the module's full path
    *
@@ -228,7 +228,7 @@ export type OptionalRequireFunction = {
    * @param optsOrMsg - options or message to log when module not found
    * @returns resolve result
    */
-  resolve: (path: string, opsOrMsg?: OptionalRequireOpts | string | true) => unknown;
+  resolve: (path: string, opsOrMsg?: OptionalRequireOpts | string | true) => string;
   /**
    * function to log message, default to use `console.log`, you can replace this with
    * another function.
@@ -243,16 +243,16 @@ export type OptionalRequireFunction = {
  * @param log - function to log if module is not found
  * @returns required module
  */
-export function makeOptionalRequire(
+export function makeOptionalRequire<T = any>(
   callerRequire: NodeRequire,
   log?: (message: string, path: string) => void
-): OptionalRequireFunction {
-  const x = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): unknown => {
+): OptionalRequireFunction<T> {
+  const x = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): T => {
     const opts = _getOptions(optsOrMsg, callerRequire, x.log);
     return _optionalRequire(path, opts);
   };
 
-  x.resolve = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): unknown => {
+  x.resolve = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): string => {
     const opts = _getOptions(optsOrMsg, callerRequire, x.log);
     opts.resolve = true;
     return _optionalRequire(path, opts);
