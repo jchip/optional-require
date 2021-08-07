@@ -3,7 +3,7 @@
   "version": "1.1.5",
   "description": "NodeJS Require that let you handle module not found error without try/catch",
   "main": "index.js",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "xrun --serial build xarc/test-only",
@@ -24,7 +24,8 @@
   ],
   "files": [
     "dist",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "engines": {
     "node": ">=4"
@@ -96,7 +97,8 @@
       "xrun*.js",
       "xrun*.ts",
       "src",
-      "dist/**/*.ts"
+      "dist/**/*.ts",
+      "index.d.ts"
     ],
     "check-coverage": true,
     "statements": 100,

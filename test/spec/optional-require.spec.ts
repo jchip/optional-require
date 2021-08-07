@@ -1,5 +1,7 @@
 import { optionalRequire, makeOptionalRequire, tryRequire, tryResolve } from "../../src";
 
+import legacyOptionalRequire from "../..";
+
 import { expect } from "chai";
 
 describe("optional-require ts", function () {
@@ -13,6 +15,10 @@ describe("optional-require ts", function () {
 
   it("should return a good relative module", () => {
     expect(optionalRequire("../data/good", { require })).to.equal("hello");
+  });
+
+  it("should work with old export", () => {
+    expect(legacyOptionalRequire(require)("chai"));
   });
 
   describe("from makeOptionalRequire", function () {
