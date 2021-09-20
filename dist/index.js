@@ -21,6 +21,24 @@ var require_at_1 = __importDefault(require("require-at"));
 // `require` from this module's context
 // Using `eval` to avoid tripping bundlers like webpack
 var xrequire = eval("require");
+// Copied from https://github.com/yarnpkg/berry/blob/d5454007c9c76becfa97b36a92de299a3694afd5/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L27
+// Splits a require request into its components, or return null if the request is a file path
+var pnpDependencyNameRegExp = /^(?![a-zA-Z]:[\\/]|\\\\|\.{0,2}(?:\/|$))((?:node:)?(?:@[^/]+\/)?[^/]+)\/*(.*|)$/;
+/**
+ * Change a module name request into a Yarn Berry PnP dependency name,
+ * since the dependency name is what will be included in the error message.
+ * For example, `optionalRequire('my-package/package.json')` will print a message like
+ * `Your application tried to access my-package,` without the `/package.json` at the end of it.
+ * This function grabs the dependency name only, or returns `null` if it can't find it.
+ * @param {string} name Requested name
+ * @returns {string} Dependency name
+ */
+function getPnpDependencyName(name) {
+    var dependencyNameMatch = name.match(pnpDependencyNameRegExp);
+    if (!dependencyNameMatch)
+        return null;
+    return dependencyNameMatch[1];
+}
 /**
  * Check if an error from require is really due to the module not found,
  * and not because the module itself trying to require another module
@@ -33,18 +51,28 @@ var xrequire = eval("require");
 function findModuleNotFound(err, name) {
     // Check the first line of the error message
     var msg = err.message.split("\n")[0];
-    return (msg &&
-        // Check for "Cannot find module 'foo'"
-        (msg.includes("'" + name + "'") ||
-            // Check for "Your application tried to access foo (a peer dependency) ..." (Yarn v2 PnP)
-            // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L680
-            msg.includes(" " + name + " ") ||
-            // Check for "Your application tried to access foo. While ..." (Yarn v2 PnP)
+    /* istanbul ignore if */
+    if (!msg) {
+        return false;
+    }
+    // Check for "Cannot find module 'foo'"
+    if (msg.includes("'" + name + "'")) {
+        return true;
+    }
+    var pnpDependencyName = getPnpDependencyName(name);
+    if (pnpDependencyName) {
+        return (
+        // Check for "Your application tried to access foo (a peer dependency) ..." (Yarn Berry PnP)
+        // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L680
+        msg.includes(" " + pnpDependencyName + " ") ||
+            // Check for "Your application tried to access foo. While ..." (Yarn Berry PnP)
             // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L704
-            msg.includes(" " + name + ". ") ||
-            // Check for "Your application tried to access foo, but ..." (Yarn v2 PnP)
+            msg.includes(" " + pnpDependencyName + ". ") ||
+            // Check for "Your application tried to access foo, but ..." (Yarn Berry PnP)
             // https://github.com/yarnpkg/berry/blob/e81dc0d29bb2f41818d9c5c1c74bab1406fb979b/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L718
-            msg.includes(" " + name + ", ")));
+            msg.includes(" " + pnpDependencyName + ", "));
+    }
+    return false;
 }
 /**
  * Default log function
@@ -64,7 +92,7 @@ function _getOptions(optsOrMsg, requireFunction, log) {
     if (requireFunction === void 0) { requireFunction = xrequire; }
     if (typeof optsOrMsg === "object") {
         var opts = __assign({ require: requireFunction, log: log }, optsOrMsg);
-        assert_1.default(!(opts.hasOwnProperty("notFound") && opts.hasOwnProperty("default")), "optionalRequire: options set with both `notFound` and `default`");
+        (0, assert_1.default)(!(opts.hasOwnProperty("notFound") && opts.hasOwnProperty("default")), "optionalRequire: options set with both `notFound` and `default`");
         return opts;
     }
     else {
@@ -172,5 +200,5 @@ exports.optionalRequire = makeOptionalRequire(xrequire);
  * @remarks You can still override the `require` using `options.require` with the one from your
  * calling context.
  */
-exports.optionalRequireCwd = makeOptionalRequire(require_at_1.default(process.cwd()));
+exports.optionalRequireCwd = makeOptionalRequire((0, require_at_1.default)(process.cwd()));
 //# sourceMappingURL=index.js.map
