@@ -154,4 +154,17 @@ describe("optional-require", function () {
       expect(_path).equal("nothing");
     });
   });
+
+  describe("Yarn Berry PnP", function() {
+    const pnpMockRequire = (name) => {
+      const err = new Error(`Your application tried to access ${name.split("/")[0]}, `);
+      err.code = "MODULE_NOT_FOUND";
+      throw err;
+    };
+
+    it("should handle Yarn Berry PnP error messages", () => {
+      expect(tryRequire(pnpMockRequire, "foo")).to.be.undefined;
+      expect(tryRequire(pnpMockRequire, "foo/package.json")).to.be.undefined;
+    });
+  });
 });
