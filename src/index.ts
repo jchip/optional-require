@@ -48,6 +48,12 @@ function findModuleNotFound(err: Error, name: string) {
     return true;
   }
 
+  // support for bun.sh
+  // bun MODULE_NOT_FOUND error has a different message: `Cannot find package "package-name"`
+  if (msg.includes(`"${name}"`)) {
+    return true;
+  }
+
   const pnpDependencyName = getPnpDependencyName(name);
   if (pnpDependencyName) {
     return (
