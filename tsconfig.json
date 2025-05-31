@@ -1,19 +1,27 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "lib": ["es2015"],
-    "module": "CommonJS",
+    "lib": [
+      "ES2022"
+    ],
+    "module": "ES2022",
     "esModuleInterop": true,
     "importHelpers": false,
-    "target": "ES5",
+    "target": "ES2022",
     "preserveConstEnums": true,
     "sourceMap": true,
     "declaration": true,
-    "types": ["node", "mocha", "chai", "sinon", "sinon-chai"],
+    "types": [
+      "node"
+    ],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "alwaysStrict": true,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "moduleResolution": "Node",
+    "rewriteRelativeImportExtensions": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

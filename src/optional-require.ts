@@ -1,11 +1,23 @@
 import assert from "assert";
 import requireAt from "require-at";
+import { URL } from "node:url";
 
-/* eslint-disable max-params, complexity, no-eval */
+/* eslint-disable max-params, complexity */
 
-// `require` from this module's context
-// Using `eval` to avoid tripping bundlers like webpack
-const xrequire = eval("require");
+let appPath = process.cwd();
+
+export function setAppPathAtTopNodeModules(appPath: string): string {
+  const nmIdx = appPath.indexOf("/node_modules/");
+  if (nmIdx !== -1) {
+    appPath = appPath.slice(0, nmIdx);
+  }
+  return appPath;
+}
+
+
+export function setAppPath(path: string) {
+  appPath = path;
+}
 
 // Copied from https://github.com/yarnpkg/berry/blob/d5454007c9c76becfa97b36a92de299a3694afd5/packages/yarnpkg-pnp/sources/loader/makeApi.ts#L27
 // Splits a require request into its components, or return null if the request is a file path
@@ -38,10 +50,11 @@ function getPnpDependencyName(name: string): string | null {
 function findModuleNotFound(err: Error, name: string) {
   // Check the first line of the error message
   const msg = err.message.split("\n")[0];
-  /* istanbul ignore if */
+  /* c8 ignore start */
   if (!msg) {
     return false;
   }
+  /* c8 ignore stop */
 
   // Check for "Cannot find module 'foo'"
   if (msg.includes(`'${name}'`)) {
@@ -131,7 +144,7 @@ export type OptionalRequireOpts = {
    *
    * If not provided, then use the one received when creating the optional require function
    */
-  require?: NodeRequire;
+  require?: NodeJS.Require;
 
   /**
    * If `true`, then do an optional `require.resolve` and return the full path
@@ -155,9 +168,28 @@ export function setDefaultLog(log: LogFunction): void {
   __defaultLog = log;
 }
 
+/**
+ * Get the require function from the caller's context
+ * @param callerRequire - the require function from the caller's context
+ * @returns the require function
+ */
+export function _getRequire(callerRequire: NodeJS.Require | string, fallbackPath?: string): NodeJS.Require {
+  if (!callerRequire) {
+    return requireAt(fallbackPath || process.cwd());
+  } else if (typeof callerRequire === "string") {
+    try {
+      return requireAt(new URL(callerRequire).pathname);
+    } catch {
+      return requireAt(callerRequire);
+    }
+  } else {
+    return callerRequire;
+  }
+}
+
 function _getOptions(
-  optsOrMsg: OptionalRequireOpts | string | true,
-  requireFunction: NodeRequire = xrequire,
+  optsOrMsg: OptionalRequireOpts | string | true | undefined,
+  requireFunction: NodeJS.Require,
   log?: LogFunction
 ): OptionalRequireOpts {
   if (typeof optsOrMsg === "object") {
@@ -181,7 +213,7 @@ function _getOptions(
  */
 function _optionalRequire(path: string, opts: OptionalRequireOpts) {
   try {
-    return opts.resolve ? opts.require.resolve(path) : opts.require(path);
+    return opts.resolve ? opts.require!.resolve(path) : opts.require!(path);
   } catch (e) {
     // exception that's not due to the module itself not found
     if (e.code !== "MODULE_NOT_FOUND" || !findModuleNotFound(e, path)) {
@@ -196,7 +228,7 @@ function _optionalRequire(path: string, opts: OptionalRequireOpts) {
     if (opts.message) {
       const message = opts.message === true ? "" : `${opts.message} - `;
       const r = opts.resolve ? "resolved" : "found";
-      opts.log(`${message}optional module not ${r}`, path);
+      opts.log!(`${message}optional module not ${r}`, path);
     }
 
     if (typeof opts.notFound === "function") {
@@ -216,11 +248,11 @@ function _optionalRequire(path: string, opts: OptionalRequireOpts) {
  * @returns require result
  */
 export function tryRequire(
-  callerRequire: NodeRequire,
+  callerRequire: NodeJS.Require | string,
   path: string,
   optsOrMsg?: OptionalRequireOpts | string | true
 ): unknown {
-  const opts = _getOptions(optsOrMsg, callerRequire, __defaultLog);
+  const opts = _getOptions(optsOrMsg, _getRequire(callerRequire), __defaultLog);
   opts.resolve = false;
   return _optionalRequire(path, opts);
 }
@@ -234,11 +266,11 @@ export function tryRequire(
  * @returns resolve result
  */
 export function tryResolve(
-  callerRequire: NodeRequire,
+  callerRequire: NodeJS.Require | string,
   path: string,
   optsOrMsg?: OptionalRequireOpts | string | true
 ): string {
-  const opts = _getOptions(optsOrMsg, callerRequire, __defaultLog);
+  const opts = _getOptions(optsOrMsg, _getRequire(callerRequire), __defaultLog);
   opts.resolve = true;
   return _optionalRequire(path, opts);
 }
@@ -275,16 +307,18 @@ export type OptionalRequireFunction<T = any> = {
  * @returns required module
  */
 export function makeOptionalRequire<T = any>(
-  callerRequire: NodeRequire,
+  callerRequire: NodeJS.Require | string,
   log?: (message: string, path: string) => void
 ): OptionalRequireFunction<T> {
+  let _require: NodeJS.Require = _getRequire(callerRequire);
+
   const x = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): T => {
-    const opts = _getOptions(optsOrMsg, callerRequire, x.log);
+    const opts = _getOptions(optsOrMsg, _require, x.log);
     return _optionalRequire(path, opts);
   };
 
   x.resolve = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): string => {
-    const opts = _getOptions(optsOrMsg, callerRequire, x.log);
+    const opts = _getOptions(optsOrMsg, _require, x.log);
     opts.resolve = true;
     return _optionalRequire(path, opts);
   };
@@ -295,19 +329,7 @@ export function makeOptionalRequire<T = any>(
 }
 
 /**
- * A default optionalRequire function using `require` from optional-require's context.
- *
- * @remarks because `require` is from optional-require's context, you won't be able to
- * do `optionalRequire("./my-module")`.
- *
- * You can still override the `require` using `options.require` with the one from your
- * calling context.
- *
- */
-export const optionalRequire = makeOptionalRequire(xrequire);
-
-/**
- * An optionalRequire function using `require` from CWD context
+ * An optionalRequire function using `require` or `import` from CWD context
  *
  * @remarks because `require` is from CWD context, if you do `optionalRequireCwd("./my-module")`
  * then it will look for `my-module` in CWD.
@@ -315,4 +337,6 @@ export const optionalRequire = makeOptionalRequire(xrequire);
  * @remarks You can still override the `require` using `options.require` with the one from your
  * calling context.
  */
-export const optionalRequireCwd = makeOptionalRequire(requireAt(process.cwd()));
+export const optionalRequireCwd = makeOptionalRequire(process.cwd());
+
+

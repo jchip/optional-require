@@ -1,0 +1,35 @@
+{
+  "name": "esm",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "homepage": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "fyn": {
+    "dependencies": {
+      "optional-require": "../.."
+    }
+  },
+  "dependencies": {
+    "optional-require": "^1.1.8"
+  },
+  "devDependencies": {
+    "@xarc/run": "^1.1.1",
+    "ts-node": "^10.9.2"
+  }
+}

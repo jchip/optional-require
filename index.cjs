@@ -5,9 +5,11 @@
  *
  */
 
-const lib = require("./dist");
+const lib = require("./dist-cjs/cjs/index.cjs");
 
-module.exports = function() { return lib.makeOptionalRequire.apply(lib, arguments); }
+module.exports = function () {
+  return lib.makeOptionalRequire.apply(lib, arguments);
+};
 
 module.exports.tryRequire = lib.tryRequire;
 module.exports.tryResolve = lib.tryResolve;
@@ -16,7 +18,10 @@ module.exports.resolve = lib.tryResolve;
 module.exports.makeOptionalRequire = lib.makeOptionalRequire;
 module.exports.optionalRequire = lib.optionalRequire;
 module.exports.optionalRequireCwd = lib.optionalRequireCwd;
-module.exports.optionalRequireTop = lib.optionalRequireTop;
+module.exports.setAppPathAtTopNodeModules = lib.setAppPathAtTopNodeModules;
+module.exports.setAppPath = lib.setAppPath;
+module.exports.setDefaultLog = lib.setDefaultLog;
+module.exports._getRequire = lib._getRequire;
 
 let __defaultLog;
 

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist-cjs",
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "target": "ES2022",
+  },
+  "exclude": ["src/esm"]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "cjs",
+  "version": "1.0.0",
+  "description": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "homepage": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "fyn": {
+    "dependencies": {
+      "optional-require": "../..",
+      "pkg-esm": "../pkg-esm"
+    }
+  },
+  "dependencies": {
+    "optional-require": "^1.1.8",
+    "pkg-esm": "^1.0.0",
+    "require-at": "^1.0.6",
+    "ts-node": "^10.9.2"
+  }
+}

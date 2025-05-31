@@ -2,7 +2,7 @@
 
 var assert = require("assert");
 
-var makeOptionalRequire = require("..");
+var makeOptionalRequire = require("../dist-cjs/cjs/index.cjs").makeOptionalRequire;
 
 var optionalRequire = makeOptionalRequire(require);
 
@@ -24,13 +24,13 @@ var xyz = optionalRequire("xyz", "test");
 
 assert(xyz === undefined);
 
-var rel = optionalRequire("./data/good");
+var rel = optionalRequire("./data/good.cjs");
 
 assert(rel === "hello");
 
 var badErr;
 try {
-  optionalRequire("./data/bad");
+  optionalRequire("./data/bad.cjs");
 } catch (err) {
   badErr = err;
 }
@@ -40,7 +40,7 @@ assert(badErr);
 var failErr;
 
 try {
-  optionalRequire("./data/error");
+  optionalRequire("./data/error.cjs");
 } catch (err) {
   failErr = err;
 }
