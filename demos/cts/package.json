@@ -1,0 +1,32 @@
+{
+  "name": "cts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "fyn": {
+    "dependencies": {
+      "optional-require": "../.."
+    }
+  },
+  "dependencies": {
+    "@types/node": "^24.0.8",
+    "optional-require": "^2.0.1",
+    "typescript": "^5.8.3"
+  }
+}
