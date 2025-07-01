@@ -16,12 +16,12 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "docs": "xrun xarc/docs && touch docs/.nojekyll",
-    "prepack": "publish-util-prepack",
+    "prepack": "npm run build && publish-util-prepack",
     "postpack": "publish-util-postpack"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jchip/optional-require.git"
+    "url": "git+https://github.com/jchip/optional-require.git"
   },
   "keywords": [
     "optional require",
