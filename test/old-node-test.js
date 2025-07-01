@@ -1,5 +1,7 @@
 // do some basic validation of legacy usage for node version older than 10
 
+/* eslint-disable */
+
 var assert = require("assert");
 
 var makeOptionalRequire = require("..");
