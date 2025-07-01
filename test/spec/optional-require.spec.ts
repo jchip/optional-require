@@ -1,5 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { optionalRequire, makeOptionalRequire, tryRequire, tryResolve, setAppPath, setAppPathAtTopNodeModules, setDefaultLog, optionalRequireCwd, _getRequire } from "../../src/esm/index.ts";
+import {
+  optionalRequire,
+  makeOptionalRequire,
+  tryRequire,
+  tryResolve,
+  setAppPath,
+  setAppPathAtTopNodeModules,
+  setDefaultLog,
+  optionalRequireCwd,
+  _getRequire,
+} from "../../src/esm/index.ts";
 import requireAt from "require-at";
 import { URL } from "node:url";
 
@@ -71,8 +81,8 @@ describe("optional-require ts", () => {
     };
 
     it("should handle Yarn Berry PnP error messages", () => {
-      expect(tryRequire((pnpMockRequire as unknown) as NodeRequire, "foo")).toBeUndefined();
-      expect(tryRequire((pnpMockRequire as unknown) as NodeRequire, "foo/package.json")).toBeUndefined();
+      expect(tryRequire(pnpMockRequire as unknown as NodeRequire, "foo")).toBeUndefined();
+      expect(tryRequire(pnpMockRequire as unknown as NodeRequire, "foo/package.json")).toBeUndefined();
     });
   });
 
@@ -141,7 +151,7 @@ describe("optional-require ts", () => {
       expect(() => {
         optionalRequire("not-found", {
           notFound: () => "notFound result",
-          default: "default result"
+          default: "default result",
         });
       }).toThrow("optionalRequire: options set with both `notFound` and `default`");
     });
@@ -153,14 +163,16 @@ describe("optional-require ts", () => {
         throw err;
       };
 
-      const pnpError1 = createPnpError("Your application tried to access my-package. While this was probably on purpose");
-      expect(tryRequire((pnpError1 as unknown) as NodeRequire, "my-package/sub")).toBeUndefined();
+      const pnpError1 = createPnpError(
+        "Your application tried to access my-package. While this was probably on purpose"
+      );
+      expect(tryRequire(pnpError1 as unknown as NodeRequire, "my-package/sub")).toBeUndefined();
 
       const pnpError2 = createPnpError("Your application tried to access my-package (a peer dependency)");
-      expect(tryRequire((pnpError2 as unknown) as NodeRequire, "my-package")).toBeUndefined();
+      expect(tryRequire(pnpError2 as unknown as NodeRequire, "my-package")).toBeUndefined();
 
       const normalError = createPnpError("Cannot find module './some-file'");
-      expect(tryRequire((normalError as unknown) as NodeRequire, "./some-file")).toBeUndefined();
+      expect(tryRequire(normalError as unknown as NodeRequire, "./some-file")).toBeUndefined();
     });
 
     it("should handle custom logging", () => {

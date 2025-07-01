@@ -14,7 +14,6 @@ export function setAppPathAtTopNodeModules(appPath: string): string {
   return appPath;
 }
 
-
 export function setAppPath(path: string) {
   appPath = path;
 }
@@ -47,7 +46,7 @@ function getPnpDependencyName(name: string): string | null {
  * @param name - name of the module being required
  * @returns true or false
  */
-function findModuleNotFound(err: Error, name: string) {
+function checkSelfModuleNotFoundErrors(err: Error, name: string) {
   // Check the first line of the error message
   const msg = err.message.split("\n")[0];
   /* c8 ignore start */
@@ -56,8 +55,14 @@ function findModuleNotFound(err: Error, name: string) {
   }
   /* c8 ignore stop */
 
-  // Check for "Cannot find module 'foo'"
-  if (msg.includes(`'${name}'`)) {
+  // exception that's not due to the module itself not found
+  if (
+    (err as any).code === "MODULE_NOT_FOUND" &&
+    // if the module we are requiring failed because it try to require a
+    // module that's not found, then we have to report this as failed.
+    // so the error message must contain the module name we are requiring.
+    msg.includes(`not find module '${name}'`)
+  ) {
     return true;
   }
 
@@ -215,10 +220,7 @@ function _optionalRequire(path: string, opts: OptionalRequireOpts) {
   try {
     return opts.resolve ? opts.require!.resolve(path) : opts.require!(path);
   } catch (e) {
-    // exception that's not due to the module itself not found
-    if (e.code !== "MODULE_NOT_FOUND" || !findModuleNotFound(e, path)) {
-      // if the module we are requiring fail because it try to require a
-      // module that's not found, then we have to report this as failed.
+    if (!checkSelfModuleNotFoundErrors(e, path)) {
       if (typeof opts.fail === "function") {
         return opts.fail(e);
       }
@@ -338,5 +340,3 @@ export function makeOptionalRequire<T = any>(
  * calling context.
  */
 export const optionalRequireCwd = makeOptionalRequire(process.cwd());
-
-

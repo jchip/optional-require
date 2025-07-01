@@ -6,3 +6,4 @@ coverage
 dist
 dist-cjs
 dist-esm
+.vscode
