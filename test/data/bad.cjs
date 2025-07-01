@@ -1,1 +1,1 @@
-require("missing");
+require("missing-cjs");

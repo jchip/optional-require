@@ -1,1 +1,1 @@
-require("missing");
+import "missing-js";

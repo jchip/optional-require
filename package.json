@@ -43,8 +43,10 @@
     "@types/node": "^20.8.9",
     "@vitest/coverage-v8": "^3.1.4",
     "@xarc/module-dev": "^5.0.0",
+    "bad-main": "^1.0.0",
     "prettier": "^2.3.2",
     "publish-util": "^2.1.0",
+    "require-missing": "^1.0.0",
     "source-map-support": "^0.5.21",
     "ts-node": "^10.9.1",
     "ts2mjs": "github:jchip/ts2mjs#main",
@@ -94,5 +96,11 @@
       "typedoc",
       "typescript"
     ]
+  },
+  "fyn": {
+    "devDependencies": {
+      "bad-main": "./test/fixtures/bad-main",
+      "require-missing": "./test/fixtures/require-missing"
+    }
   }
 }

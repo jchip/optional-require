@@ -39,6 +39,14 @@ describe("optional-require (CJS build)", function () {
       expect(() => makeOptionalRequire(require)("../data/bad.cjs")).toThrow();
     });
 
+    it("should not throw error for package with bad main in package.json", () => {
+      expect(() => makeOptionalRequire(require)("bad-main")).not.toThrow();
+    });
+
+    it("should throw error for module requiring missing module", () => {
+      expect(() => makeOptionalRequire(require)("require-missing")).toThrow("Cannot find module 'missing-module'");
+    });
+
     it("should throw error for error module", () => {
       expect(() => makeOptionalRequire(require)("../data/error.cjs")).toThrow();
     });

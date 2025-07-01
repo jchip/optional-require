@@ -29,6 +29,81 @@ describe("optional-require ts", () => {
     expect(optionalRequire("../data/good.cjs", { require: nodeRequire })).toBe("hello");
   });
 
+  describe("optionalRequire", function () {
+    const optionalRequireT1 = makeOptionalRequire(nodeRequire);
+
+    it("should provide default require function", () => {
+      expect(optionalRequireT1("chai")).toBeTruthy();
+    });
+
+    it("should return undefined when module is not found", () => {
+      expect(optionalRequireT1("not-found")).toBeUndefined();
+    });
+
+    it("should throw error for module that require a missing module", () => {
+      expect(() => optionalRequireT1("../data/bad.js")).toThrow("Cannot find package 'missing-js'");
+      expect(() => optionalRequireT1("../data/bad.cjs")).toThrow("Cannot find module 'missing-cjs'");
+    });
+
+    it("should not throw error for package with bad main in package.json", () => {
+      expect(() => optionalRequireT1("bad-main")).not.toThrow();
+      expect(optionalRequireT1("bad-main")).toBeUndefined();
+    });
+
+    it("should throw error for module requiring missing module", () => {
+      expect(() => optionalRequireT1("require-missing")).toThrow("Cannot find module 'missing-module'");
+    });
+
+    it("should throw error for error module", () => {
+      expect(() => optionalRequireT1("../data/error.cjs")).toThrow();
+    });
+
+    it("should log default message when module is not found", () => {
+      expect(optionalRequireT1("not-found", true)).toBeUndefined();
+    });
+
+    it("should log optional message when module is not found", () => {
+      expect(optionalRequireT1("not-found", "test")).toBeUndefined();
+    });
+
+    it("should return a good module", () => {
+      expect(optionalRequireT1("chai")).toBeTruthy();
+    });
+
+    it("should return a good relative module", () => {
+      expect(optionalRequireT1("../data/good.cjs")).toBe("hello");
+    });
+
+    it("should call fail", () => {
+      let failed;
+      optionalRequireT1("../data/error.cjs", {
+        fail: (e) => {
+          failed = e;
+        },
+      });
+      expect(failed).toBeTruthy();
+    });
+
+    it("should call notFound", () => {
+      let notFound;
+      optionalRequireT1("not-found", {
+        notFound: (e) => {
+          notFound = e;
+          return {};
+        },
+      });
+      expect(notFound).toBeTruthy();
+    });
+
+    it("should return default", () => {
+      expect(optionalRequireT1("not-found", { default: "hello" })).toBe("hello");
+    });
+
+    it("should throw if notFound and default both are set in options", () => {
+      expect(() => optionalRequireT1("", { notFound: () => 1, default: 1 })).toThrow();
+    });
+  });
+
   describe("from makeOptionalRequire", () => {
     const myOptionalRequire = makeOptionalRequire(nodeRequire);
 
