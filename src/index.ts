@@ -26,16 +26,21 @@ function getPnpDependencyName(name: string): string | null {
   return dependencyNameMatch[1];
 }
 
+type RequireError = Error & {
+  code: string;
+  // Starting with node.js 12, require error has `requestPath`.
+  requestPath: string;
+};
 /**
  * Check if an error from require is really due to the module not found,
  * and not because the module itself trying to require another module
  * that's not found.
  *
  * @param err - the error
- * @param name - name of the module being required
+ * @param requestPath - request path of the module being required
  * @returns true or false
  */
-function checkSelfModuleNotFoundErrors(err: Error, name: string) {
+function checkSelfModuleNotFoundErrors(err: RequireError, requestPath: string) {
   // Check the first line of the error message
   const msg = err.message.split("\n")[0];
   /* istanbul ignore next */
@@ -46,16 +51,18 @@ function checkSelfModuleNotFoundErrors(err: Error, name: string) {
 
   // exception that's not due to the module itself not found
   if (
-    (err as any).code === "MODULE_NOT_FOUND" &&
-    // if the module we are requiring failed because it try to require a
+    err.code === "MODULE_NOT_FOUND" &&
+    // If the module we are requiring failed because it try to require a
     // module that's not found, then we have to report this as failed.
-    // so the error message must contain the module name we are requiring.
-    msg.includes(`not find module '${name}'`)
+    // - So the error message must contain the module name we are requiring.
+    (err.requestPath === requestPath ||
+      msg.includes(`not find module '${requestPath}'`) ||
+      msg.includes(`not find package '${requestPath}'`))
   ) {
     return true;
   }
 
-  const pnpDependencyName = getPnpDependencyName(name);
+  const pnpDependencyName = getPnpDependencyName(requestPath);
   if (pnpDependencyName) {
     return (
       // Check for "Your application tried to access foo (a peer dependency) ..." (Yarn Berry PnP)
@@ -189,12 +196,12 @@ function _getOptions(
 function _optionalRequire(path: string, opts: OptionalRequireOpts) {
   try {
     return opts.resolve ? opts.require.resolve(path) : opts.require(path);
-  } catch (e) {
-    if (!checkSelfModuleNotFoundErrors(e, path)) {
+  } catch (err: any) {
+    if (!checkSelfModuleNotFoundErrors(err, path)) {
       if (typeof opts.fail === "function") {
-        return opts.fail(e);
+        return opts.fail(err);
       }
-      throw e;
+      throw err;
     }
 
     if (opts.message) {
@@ -204,7 +211,7 @@ function _optionalRequire(path: string, opts: OptionalRequireOpts) {
     }
 
     if (typeof opts.notFound === "function") {
-      return opts.notFound(e);
+      return opts.notFound(err);
     }
 
     return opts.default;

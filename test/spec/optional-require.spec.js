@@ -42,6 +42,15 @@ describe("optional-require", function () {
       expect(() => optionalRequire(require)("../data/bad")).to.throw();
     });
 
+    it("should not throw error for package with bad main in package.json", () => {
+      // a bad main would throw MODULE_NOT_FOUND, but we should handle it
+      expect(() => optionalRequire(require)("bad-main")).to.not.throw();
+    });
+
+    it("should throw error for module requiring missing module", () => {
+      expect(() => optionalRequire(require)("require-missing")).to.throw("Cannot find module 'missing-module'");
+    });
+
     it("should throw error for error module", () => {
       expect(() => optionalRequire(require)("../data/error")).to.throw();
     });
@@ -155,7 +164,7 @@ describe("optional-require", function () {
     });
   });
 
-  describe("Yarn Berry PnP", function() {
+  describe("Yarn Berry PnP", function () {
     const pnpMockRequire = (name) => {
       const err = new Error(`Your application tried to access ${name.split("/")[0]}, `);
       err.code = "MODULE_NOT_FOUND";

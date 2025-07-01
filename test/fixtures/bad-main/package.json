@@ -1,0 +1,22 @@
+{
+  "name": "bad-main",
+  "version": "1.0.0",
+  "description": "test package with a bad main in package.json",
+  "main": "dist/index.js",
+  "homepage": "",
+  "license": "UNLICENSED",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "files": [
+    "src",
+    "lib",
+    "dist"
+  ],
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
