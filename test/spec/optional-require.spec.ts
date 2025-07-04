@@ -12,6 +12,7 @@ import {
 } from "../../src/esm/index.ts";
 import requireAt from "require-at";
 import { URL } from "node:url";
+import path from "node:path";
 
 // Create a require function for ESM context
 const nodeRequire = requireAt(new URL(import.meta.url).pathname);
@@ -52,6 +53,14 @@ describe("optional-require ts", () => {
 
     it("should throw error for module requiring missing module", () => {
       expect(() => optionalRequireT1("require-missing")).toThrow("Cannot find module 'missing-module'");
+    });
+
+    it("should throw error for package that requires missing module", () => {
+      expect(() => optionalRequireT1("proxy-to-missing")).toThrow("Cannot find module 'missing-module'");
+    });
+
+    it("should throw error for package that requires bad-main", () => {
+      expect(() => optionalRequireT1("proxy-to-bad-main")).toThrow("Cannot find module");
     });
 
     it("should throw error for error module", () => {
@@ -101,6 +110,68 @@ describe("optional-require ts", () => {
 
     it("should throw if notFound and default both are set in options", () => {
       expect(() => optionalRequireT1("", { notFound: () => 1, default: 1 })).toThrow();
+    });
+  });
+
+  describe("optionalRequire.resolvePath", () => {
+    const optionalRequireT1 = makeOptionalRequire(nodeRequire);
+
+    it("should return the resolved path", () => {
+      const result = optionalRequireT1.resolvePath("typescript");
+      expect(result).toBe(nodeRequire.resolve("typescript"));
+    });
+
+    it("should return the resolved path for package with bad main in package.json", () => {
+      const result = optionalRequireT1.resolvePath("bad-main");
+      expect(result).toContain(path.join(process.cwd(), "node_modules", "bad-main"));
+    });
+
+    it("should throw when requires proxy-to-bad-main/something", () => {
+      expect(optionalRequireT1.resolvePath("proxy-to-bad-main/something")).toContain(
+        "/test/spec/node_modules/proxy-to-bad-main/something"
+      );
+    });
+
+    it("should return default if everything failed", () => {
+      const resolve = () => {
+        const err = new Error("test");
+        (err as any).code = "MODULE_NOT_FOUND";
+        throw err;
+      };
+      resolve.paths = () => {
+        throw new Error("test");
+      };
+
+      const result = optionalRequireT1.resolvePath("bad-main", {
+        require: {
+          resolve,
+        } as any,
+        default: "hello",
+      });
+      expect(result).toBe("hello");
+    });
+
+    it("should return the resolved path for package with syntax error", () => {
+      const result = optionalRequireT1.resolvePath("syntax-error");
+      expect(result).toContain(path.join(process.cwd(), "node_modules", "syntax-error"));
+    });
+
+    it("should fail if failed with error other than MODULE_NOT_FOUND", () => {
+      // trigger failure with non-string path
+      expect(() => optionalRequireT1.resolvePath(999 as any)).toThrow();
+    });
+
+    it("should call opts.fail if failed with error other than MODULE_NOT_FOUND", () => {
+      // trigger failure with non-string path
+      let failed;
+      optionalRequireT1.resolvePath(999 as any, { fail: (e) => (failed = e) });
+      expect(failed).toBeInstanceOf(Error);
+    });
+
+    it("should fail if package doesn't exist in node_modules", () => {
+      expect(optionalRequireT1.resolvePath("not-exist-blah-foo-bar")).toContain(
+        "/test/spec/node_modules/not-exist-blah-foo-bar"
+      );
     });
   });
 

@@ -45,9 +45,12 @@
     "@xarc/module-dev": "^5.0.0",
     "bad-main": "^1.0.0",
     "prettier": "^2.3.2",
+    "proxy-to-bad-main": "^1.0.0",
+    "proxy-to-missing": "^1.0.0",
     "publish-util": "^2.1.0",
     "require-missing": "^1.0.0",
     "source-map-support": "^0.5.21",
+    "syntax-error": "^1.0.0",
     "ts-node": "^10.9.1",
     "ts2mjs": "github:jchip/ts2mjs#main",
     "tsx": "^4.19.4",
@@ -100,7 +103,10 @@
   "fyn": {
     "devDependencies": {
       "bad-main": "./test/fixtures/bad-main",
-      "require-missing": "./test/fixtures/require-missing"
+      "proxy-to-bad-main": "./test/fixtures/proxy-to-bad-main",
+      "proxy-to-missing": "./test/fixtures/proxy-to-missing",
+      "require-missing": "./test/fixtures/require-missing",
+      "syntax-error": "./test/fixtures/syntax-error"
     }
   }
 }

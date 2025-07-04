@@ -1,6 +1,7 @@
 import assert from "assert";
 import requireAt from "require-at";
 import { URL } from "node:url";
+import path from "node:path";
 
 /* eslint-disable max-params, complexity */
 
@@ -41,6 +42,7 @@ type RequireError = Error & {
   code: string;
   // Starting with node.js 12, require error has `requestPath`.
   requestPath: string;
+  path?: string;
 };
 
 /**
@@ -64,7 +66,7 @@ function checkSelfModuleNotFoundErrors(err: RequireError, requestPath: string) {
   // exception that's not due to the module itself not found
   if (
     err.code === "MODULE_NOT_FOUND" &&
-    // If the module we are requiring failed because it try to require aAdd commentMore actions
+    // If the module we are requiring failed because it try to require a
     // module that's not found, then we have to report this as failed.
     // - So the error message must contain the module name we are requiring.
     (err.requestPath === requestPath ||
@@ -218,34 +220,103 @@ function _getOptions(
 }
 
 /**
+ * Report an error
+ *
+ * @param err - the error
+ * @param opts - the options
+ * @param request - the path of the module being required
+ * @returns the result
+ */
+function defaultFallback(err: Error, opts: OptionalRequireOpts, request: string) {
+  if (opts.message) {
+    const message = opts.message === true ? "" : `${opts.message} - `;
+    const r = opts.resolve ? "resolved" : "found";
+    opts.log!(`${message}optional module not ${r}`, request);
+  }
+
+  if (typeof opts.notFound === "function") {
+    return opts.notFound(err);
+  }
+
+  return opts.default;
+}
+
+/**
+ * Resolve the path of a module
+ *
+ * @param request - the path to resolve
+ * @param opts - the options
+ * @returns the resolved path
+ */
+function _resolvePath(request: string, opts: OptionalRequireOpts) {
+  try {
+    if (path.isAbsolute(request)) {
+      return request;
+    }
+
+    if (request.startsWith(".")) {
+      return path.join(path.dirname(opts.require!.resolve.paths("")[0]), request);
+    }
+  } catch {
+    //
+  }
+
+  let firstError: Error | undefined;
+
+  const theRequire = opts.require!;
+
+  try {
+    return theRequire.resolve(request);
+  } catch (err: any) {
+    if (err.code !== "MODULE_NOT_FOUND" && err.code !== "ERR_PACKAGE_PATH_NOT_EXPORTED") {
+      return reportError(err, opts);
+    }
+
+    if (err.path) {
+      return err.path;
+    }
+
+    firstError = err;
+  }
+
+  try {
+    return path.dirname(theRequire.resolve(request + "/package.json"));
+  } catch {
+    //
+  }
+
+  try {
+    return path.join(theRequire.resolve.paths("")[0], request);
+  } catch {
+    //
+  }
+
+  return defaultFallback(firstError, opts, request);
+}
+
+function reportError(err: Error, opts: OptionalRequireOpts) {
+  if (typeof opts.fail === "function") {
+    return opts.fail(err);
+  }
+  throw err;
+}
+
+/**
  * Internal optional require implementation
  *
- * @param path - path to module to require
+ * @param request - path to module to require
  * @param optsOrMsg - options or message to log in case module not found
  * @returns require or resolve result
  */
-function _optionalRequire(path: string, opts: OptionalRequireOpts) {
+function _optionalRequire(request: string, opts: OptionalRequireOpts) {
   try {
-    return opts.resolve ? opts.require!.resolve(path) : opts.require!(path);
+    return opts.resolve ? opts.require!.resolve(request) : opts.require!(request);
   } catch (err: any) {
-    if (!checkSelfModuleNotFoundErrors(err, path)) {
-      if (typeof opts.fail === "function") {
-        return opts.fail(err);
-      }
-      throw err;
+    if (!checkSelfModuleNotFoundErrors(err, request)) {
+      return reportError(err, opts);
     }
 
-    if (opts.message) {
-      const message = opts.message === true ? "" : `${opts.message} - `;
-      const r = opts.resolve ? "resolved" : "found";
-      opts.log!(`${message}optional module not ${r}`, path);
-    }
-
-    if (typeof opts.notFound === "function") {
-      return opts.notFound(err);
-    }
-
-    return opts.default;
+    return defaultFallback(err, opts, request);
   }
 }
 
@@ -302,6 +373,15 @@ export type OptionalRequireFunction<T = any> = {
    * @returns resolve result
    */
   resolve: (path: string, opsOrMsg?: OptionalRequireOpts | string | true) => string;
+
+  /**
+   * resolve the module's full path
+   *
+   * @param path - path to module to resolve
+   * @param optsOrMsg - options or message to log when module not found
+   * @returns resolve result
+   */
+  resolvePath: (path: string, opsOrMsg?: OptionalRequireOpts | string | true) => string;
   /**
    * function to log message, default to use `console.log`, you can replace this with
    * another function.
@@ -331,6 +411,12 @@ export function makeOptionalRequire<T = any>(
     const opts = _getOptions(optsOrMsg, _require, x.log);
     opts.resolve = true;
     return _optionalRequire(path, opts);
+  };
+
+  x.resolvePath = (path: string, optsOrMsg?: OptionalRequireOpts | string | true): string => {
+    const opts = _getOptions(optsOrMsg, _require, x.log);
+    opts.resolve = true;
+    return _resolvePath(path, opts);
   };
 
   x.log = log || __defaultLog;
